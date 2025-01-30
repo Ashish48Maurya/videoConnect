@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Video, Menu, LogOut } from "lucide-react"
+import { Video, CalendarCheck, LogOut } from "lucide-react"
 import { useUser, useClerk } from "@clerk/nextjs"
 import { motion } from "framer-motion"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -38,7 +38,7 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <div className="hidden md:flex items-center space-x-4">
-                        <NavLink href="meetings" className="text-bold">Meetings</NavLink>
+                        <Link href="/meetings" className="font-semibold text-md">Meetings</Link>
                         <div className="flex items-center">
                             {user ? (
                                 <UserMenu user={user} signOut={signOut} />
@@ -55,7 +55,7 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="md:hidden flex items-center">
-                        <NavIconButton icon={Menu} />
+                        <UserMenu user={user} signOut={signOut} />
                     </div>
                 </div>
             </div>
@@ -83,17 +83,22 @@ const UserMenu = ({ user, signOut }) => (
         <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar>
-                    <AvatarImage src={user.imageUrl} alt="User avatar" />
-                    <AvatarFallback>{user.firstName?.charAt(0) || "U"}</AvatarFallback>
+                    <AvatarImage src={user?.imageUrl} alt="User avatar" />
+                    <AvatarFallback>{user?.firstName?.charAt(0) || "U"}</AvatarFallback>
                 </Avatar>
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+            <DropdownMenuItem className="md:hidden">
+                <CalendarCheck className="mr-2 h-4 w-4" />
+                <Link href="/meetings" className="font-semibold text-sm">Meetings</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => signOut()}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Sign out</span>
             </DropdownMenuItem>
         </DropdownMenuContent>
+
     </DropdownMenu>
 )
 
