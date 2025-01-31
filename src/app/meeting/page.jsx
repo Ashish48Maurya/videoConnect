@@ -5,7 +5,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
     Form,
@@ -24,7 +23,6 @@ export default function Page() {
     const form = useForm({
         defaultValues: {
             name: "",
-            description: "",
             startDateTime: "",
             anyoneCanJoin: false,
             emails: [{ value: "" }],
@@ -68,19 +66,6 @@ export default function Page() {
                                 <FormLabel>Meeting Name</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Enter meeting name" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Description (optional)</FormLabel>
-                                <FormControl>
-                                    <Textarea placeholder="Enter meeting description" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
